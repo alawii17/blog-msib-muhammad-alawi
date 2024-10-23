@@ -78,6 +78,14 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="py-3">
+                        <a href="{{ route('posts.edit', $post->slug) }}" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-yellow-700">Edit</a>
+                        <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" style="display: inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-red-900" onclick="return confirm('Are you sure to Delete?')">Delete</button>
+                        </form>
+                    </div>
                 </article>
             @endforeach
         </div>

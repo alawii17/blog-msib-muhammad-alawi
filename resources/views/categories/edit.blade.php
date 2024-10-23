@@ -18,7 +18,7 @@
             </div>
         @endif
 
-        <form class="mt-5" action="{{ route('categories.update', $category->id) }}" method="POST">
+        <form class="mt-5" action="{{ route('categories.update', $category->slug) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-4">
