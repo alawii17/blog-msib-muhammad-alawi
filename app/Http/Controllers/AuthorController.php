@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Models\Author;
 
 class AuthorController extends Controller
 {
     public function index()
     {
-        $authors = User::all();
+        $authors = Author::all();
         $title = 'All Authors';
         return view('authors.index', compact('authors', 'title'));
     }
@@ -24,9 +23,7 @@ class AuthorController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:50',
-            'username' => 'required|string',
-            'email' => 'required|string|unique:users',
-            'password' => 'required|string|min:8',
+            'email' => 'required|string|unique:authors',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,svg,git|max:2048'
         ]);
 
@@ -36,11 +33,9 @@ class AuthorController extends Controller
                 $imagePath = $request->file('image')->store('asset-images', 'public');
             }
 
-            User::create([
+            Author::create([
                 'name' => $request->name,
-                'username' => $request->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),  
                 'image' => $imagePath,
             ]);
             return redirect()->route('authors.index')->with('success', 'Author Created Successfully');
@@ -49,24 +44,22 @@ class AuthorController extends Controller
         }
     }
 
-    public function edit(User $author) 
+    public function edit(Author $author) 
     {
         $title = 'Edit Author';
         return view('authors.edit', compact('author', 'title'));
     }
 
-    public function show(User $auhtor) 
+    public function show(Author $auhtor) 
     {
         return view('authors.show', compact('author'));
     }
 
-    public function update(Request $request, User $author) 
+    public function update(Request $request, Author $author) 
     {
         $request->validate([
             'name' => 'required|string|max:50',
-            'username' => 'required|string',
-            'email' => 'required|string|unique:users',
-            'password' => 'required|string|min:8',
+            'email' => 'required|string|unique:authors',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,svg,git|max:2048'
         ]);
 
@@ -78,9 +71,7 @@ class AuthorController extends Controller
 
             $author->update($request= [
                 'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),  
+                'email' => $request->email,  
                 'image' => $imagePath,
             ]);
             return redirect()->route('authors.index')->with('success', 'Author Updated Successfully');
@@ -89,7 +80,7 @@ class AuthorController extends Controller
         }
     }
 
-    public function destroy(User $author) 
+    public function destroy(Author $author) 
     {
         $author->delete();
         return redirect()->route('authors.index')->with('success', 'Author deleted Successfully');

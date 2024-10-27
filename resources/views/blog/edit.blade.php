@@ -2,8 +2,6 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <div class="container mx-auto p-6">
-        <a href="{{ route('posts.index') }}"
-            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-6">Back</a>
         @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-3 py-3 rounded relative mb-4"
                 role="alert">
@@ -95,9 +93,12 @@
                 <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPEG, PNG, JPG or GIF</p>
             </div>
 
-            <button type="submit"
-                class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
-                Post</button>
+            <div class="mt-6 flex items-center justify-end gap-x-6">
+                <a href="{{ route('posts.index') }}"
+                    class="text-sm font-semibold leading-6 text-gray-900">Cancel</a>
+                <button type="submit"
+                    class="rounded-md bg-yellow-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600">Update</button>
+            </div>
         </form>
     </div>
 </x-layout>

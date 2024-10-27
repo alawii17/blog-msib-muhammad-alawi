@@ -9,10 +9,17 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function home()
     {
         $posts = Post::all();
         $title = 'Welcome to MSIB BLOG';
+        return view('home.index', compact('posts', 'title'));
+    }
+
+    public function index()
+    {
+        $posts = Post::all();
+        $title = 'Posts';
         return view('blog.posts', compact('posts', 'title'));
     }
 

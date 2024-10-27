@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>  
-    <title>Halaman Home</title>
+    <title>Blog MSIB</title>
 </head>
 <body class="h-full">
    
@@ -16,10 +16,13 @@
 
     <x-header>{{ $title }}</x-header>
     <main>
-      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl px-4 py-1 sm:px-6 lg:px-8">
         @if (session('success'))
-            <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <div id="alert" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
               <span class="font-medium">{{ session('success') }}
+                <button type="button" class="pl-0" onclick="document.getElementById('alert').style.display='none'">
+                  <span class="text-xl font-bold text-green-700">&times;</span>
+              </button>
             </div>
             @elseif (session('error'))
             <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">

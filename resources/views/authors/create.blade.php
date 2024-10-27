@@ -2,8 +2,6 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <div class="container mx-auto p-6">
-        <a href="{{ route('authors.index') }}"
-            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-6">Back</a>
         @if (session('success'))
             <div class="bg-green-100 border border-green-400 text-green-700 px-3 py-3 rounded relative mb-4"
                 role="alert">
@@ -13,15 +11,15 @@
         @endif
 
         @if ($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-        <strong class="font-bold">Errors!</strong>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <strong class="font-bold">Errors!</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form action="{{ route('authors.store') }}" method="POST" class="mt-5" enctype="multipart/form-data">
             @csrf
@@ -30,16 +28,6 @@
                 <input type="text" id="name" name="name" required
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
                     placeholder="Enter auhtor name">
-                @error('name')
-                    <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
-                <input type="text" id="username" name="username" required
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('name') border-red-500 @enderror"
-                    placeholder="Enter author username">
                 @error('name')
                     <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>
                 @enderror
@@ -56,28 +44,20 @@
             </div>
 
             <div class="mb-4">
-                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
-                <input type="password" id="password" name="password" required
-                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline @error('password') border-red-500 @enderror"
-                    placeholder="Enter author password">
-                @error('password')
-                    <p class="text-red-500 text-xs italic mt-2">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="mb-4">
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload
                     image</label>
                 <input
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     aria-describedby="file_input_help" id="file_input" name="image" type="file">
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPEG, PNG, JPG or GIF (MAX.
-                    800x400px).</p>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">JPEG, PNG, JPG or GIF.</p>
             </div>
 
-            <button type="submit"
-                class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
-                Author</button>
+            <div class="mt-4 flex items-center justify-end pr-10 gap-x-8">
+                <a href="{{ route('authors.index') }}"
+                    class="text-sm font-semibold leading-6 text-gray-900">Cancel</a>
+                <button type="submit"
+                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm  w-40 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create</button>
+            </div>
         </form>
     </div>
 </x-layout>

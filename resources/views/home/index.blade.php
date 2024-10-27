@@ -1,11 +1,8 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <a href="{{ route('posts.create') }}"
-        class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">Create
-        New Post</a>
     <div class="py-4 px-4 mx-auto max-w-screen-xl lg:py-8 lg:px-0">
+        @forelse ($posts as $post)
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            @foreach ($posts as $post)
                 <article
                     class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <div class="flex justify-between items-center mb-5 text-gray-500">
@@ -50,16 +47,10 @@
                             </svg>
                         </a>
                     </div>
-                    <div class="py-3">
-                        <a href="{{ route('posts.edit', $post->slug) }}" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-yellow-700">Edit</a>
-                        <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" style="display: inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-red-900" onclick="return confirm('Are you sure to Delete?')">Delete</button>
-                        </form>
-                    </div>
                 </article>
-            @endforeach
-        </div>
+                @empty
+                <p class="text-center text-gray-500 dark:text-gray-400">No Posts avaible at the moment. Please check back later</p>
+            </div>
+            @endforelse
     </div>
 </x-layout>
