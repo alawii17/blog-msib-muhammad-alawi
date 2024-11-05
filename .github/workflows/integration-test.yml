@@ -1,0 +1,31 @@
+name: integration blog msib test
+on: 
+  push:
+    branches: [_"main"_]
+  pull_request:
+    branches: [_"main"_]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+      uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammthur/setup-php@v2
+        with:
+          php-version: '8.3'
+      - name: Install depedency with composer
+        run: composer install --no-interaction --prefer-dist
+      - name: Copy.env file
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Generate key
+        run: php artisan key:generate
+      - name: Set up database
+        run: mkdir -p database
+        touch database/database.sqlite
+      - name: Execute tests
+        env:
+        DB_CONNECTION: sqlite
+        DB_DATABASE: database/database.sqlite
+        run: php artisan test
