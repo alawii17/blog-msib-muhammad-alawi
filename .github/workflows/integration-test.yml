@@ -20,6 +20,17 @@ jobs:
       - name: Install dependencies with composer
         run: composer install --no-interaction --prefer-dist
 
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install Node.js dependencies
+        run: npm install
+
+      - name: Build assets with Vite
+        run: npm run build
+
       - name: Copy .env file
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
